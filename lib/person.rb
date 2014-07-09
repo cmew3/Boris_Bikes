@@ -8,6 +8,7 @@ class Person
 	end
 
 	def fall_down
+		raise "You don't have a bike!!" unless has_bike?
 		@bike.break!
 	end
 

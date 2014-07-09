@@ -59,4 +59,10 @@ describe Person do
 		person = Person.new(:bike)
 		expect{ person.rent_bike_from docking_station }.to raise_error(RuntimeError)
 	end
+
+	it 'cannot fall down unless they have a bike' do
+		docking_station = double :station
+		person = Person.new
+		expect { person.fall_down }.to raise_error(RuntimeError)
+	end
 end
