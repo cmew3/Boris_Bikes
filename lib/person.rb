@@ -12,6 +12,7 @@ class Person
 	end
 
 	def rent_bike_from docking_station
+		raise "You already have a bike!!" if has_bike?
 		@bike = docking_station.release_bike
 	end
 

@@ -53,4 +53,10 @@ describe Person do
 		person = Person.new
 		expect{ person.return_bike_to docking_station }.to raise_error(RuntimeError)
 	end
+
+	it 'cannot rent bike if it already has one' do
+		docking_station = double :station
+		person = Person.new(:bike)
+		expect{ person.rent_bike_from docking_station }.to raise_error(RuntimeError)
+	end
 end
