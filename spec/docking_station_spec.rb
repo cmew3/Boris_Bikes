@@ -1,8 +1,30 @@
 require 'docking_station'
 
 describe DockingStation do
+	let(:docking_station) { DockingStation.new }
+	context 'capacities' do
+		it 'can be any number' do
+			station = DockingStation.new(capacity: 25)
+			expect(station.capacity).to eq 25
+		end
+
+		it 'can have a default capacity' do
+			expect(docking_station.capacity).to eq 10
+		end
+
+		it 'cannot be invalid' do
+			expect(docking_station.not_valid capacity: "A").to be true	
+		end
+
+		it 'cannot be a non integer value' do
+			expect { DockingStation.new(capacity: "A") }.to raise_error(RuntimeError)
+		end
+
+
+	end
+
 	context 'that is empty' do
-		let(:docking_station) { DockingStation.new }
+		
 		it 'is not full' do
 			expect(docking_station).not_to be_full
 		end
@@ -20,39 +42,49 @@ describe DockingStation do
 
 	context 'that is full' do
 		it 'should be full' do
-			docking_station = DockingStation.new
 			DockingStation::DEFAULT_CAPACITY.times { docking_station.dock(:bike) }
 			expect(docking_station).to be_full
-		end
-
-		it 'can release a bike' do
-			docking_station = DockingStation.new
-			DockingStation::DEFAULT_CAPACITY.times { docking_station.dock(:bike) }
-			expect(docking_station.release_bike).to eq :bike
 		end
 	end
 
 	context 'that has mixture of broken and working bikes' do
 		
 		it 'should know that bikes are working' do
-			docking_station = DockingStation.new
-			working_bike = double :bike, broken?: false
-			broken_bike = double :bike, broken?: true
+			working_bike = double :bike
 			docking_station.dock working_bike
-			docking_station.dock broken_bike
 
 			expect(working_bike).to receive(:broken?)
 			docking_station.available_bikes
 		end
 
 		it 'should return only available bikes' do
-			docking_station = DockingStation.new
 			working_bike = double :bike, broken?: false
 			broken_bike = double :bike, broken?: true
 			docking_station.dock working_bike
 			docking_station.dock broken_bike
 		
 			expect(docking_station.available_bikes).to eq [working_bike]
+		end
+
+		# test the interaction
+		# double check with teachers
+		it 'should release bike' do
+			working_bike = double :bike, broken?: false
+			broken_bike = double :bike, broken?: true
+			docking_station.dock broken_bike
+			docking_station.dock working_bike
+
+			expect(docking_station).to receive(:available_bikes).and_return([working_bike])
+			docking_station.release_bike
+		end
+		# then test the data
+		it 'should release the first available bike' do
+			working_bike = double :bike, broken?: false
+			broken_bike = double :bike, broken?: true
+			docking_station.dock broken_bike
+			docking_station.dock working_bike
+
+			expect(docking_station.release_bike).to eq working_bike
 		end
 	end
 end
