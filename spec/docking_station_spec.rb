@@ -51,9 +51,7 @@ describe DockingStation do
 			broken_bike = double :bike, broken?: true
 			docking_station.dock working_bike
 			docking_station.dock broken_bike
-
-			expect(working_bike).to receive(:broken?).and_return(false)
-			
+		
 			expect(docking_station.available_bikes).to eq [working_bike]
 		end
 	end
