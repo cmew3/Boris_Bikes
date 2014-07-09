@@ -53,12 +53,12 @@ describe DockingStation do
 
 	context 'that is full' do
 		it 'should be full' do
-			DockingStation::DEFAULT_CAPACITY.times { docking_station.dock(:bike) }
+			docking_station.capacity.times { docking_station.dock(:bike) }
 			expect(docking_station).to be_full
 		end
 
 		it 'cannot dock anymore bikes' do
-			DockingStation::DEFAULT_CAPACITY.times { docking_station.dock(:bike) }
+			docking_station.capacity.times { docking_station.dock(:bike) }
 			expect{ docking_station.dock(:bike) }.to raise_error(RuntimeError)
 		end
 	end

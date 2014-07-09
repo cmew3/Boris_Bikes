@@ -1,7 +1,6 @@
 class DockingStation
-	attr_reader :capacity
-
 	DEFAULT_CAPACITY = 10
+	attr_reader :capacity
 
 	def initialize(options = {})
 		raise "Capacity is not an integer" if not_valid options
