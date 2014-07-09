@@ -31,4 +31,30 @@ describe DockingStation do
 			expect(docking_station.release_bike).to eq :bike
 		end
 	end
+
+	context 'that has mixture of broken and working bikes' do
+		
+		it 'should know that bikes are working' do
+			docking_station = DockingStation.new
+			working_bike = double :bike, broken?: false
+			broken_bike = double :bike, broken?: true
+			docking_station.dock working_bike
+			docking_station.dock broken_bike
+
+			expect(working_bike).to receive(:broken?)
+			docking_station.available_bikes
+		end
+
+		it 'should return only available bikes' do
+			docking_station = DockingStation.new
+			working_bike = double :bike, broken?: false
+			broken_bike = double :bike, broken?: true
+			docking_station.dock working_bike
+			docking_station.dock broken_bike
+
+			expect(working_bike).to receive(:broken?).and_return(false)
+			
+			expect(docking_station.available_bikes).to eq [working_bike]
+		end
+	end
 end
