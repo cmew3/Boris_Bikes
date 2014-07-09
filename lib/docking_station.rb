@@ -21,4 +21,8 @@ class DockingStation
 	def release_bike
 		@bikes.first
 	end
+
+	def available_bikes
+		@bikes.reject { |bike| bike.broken? }
+	end
 end
