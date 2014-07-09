@@ -47,4 +47,10 @@ describe Person do
 		person.return_bike_to docking_station
 		expect(person).not_to have_bike
 	end
+
+	it 'cannot return bike if it has none' do
+		docking_station = double :station
+		person = Person.new
+		expect{ person.return_bike_to docking_station }.to raise_error(RuntimeError)
+	end
 end

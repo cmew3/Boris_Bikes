@@ -16,6 +16,7 @@ class Person
 	end
 
 	def return_bike_to docking_station
+		raise "You don't have a bike!!" unless has_bike?
 		@bike = docking_station.dock @bike
 	end
 
