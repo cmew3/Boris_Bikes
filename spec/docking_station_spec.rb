@@ -19,8 +19,6 @@ describe DockingStation do
 		it 'cannot be a non integer value' do
 			expect { DockingStation.new(capacity: "A") }.to raise_error(RuntimeError)
 		end
-
-
 	end
 
 	context 'that is empty' do
@@ -37,6 +35,11 @@ describe DockingStation do
 			bike = double :bike
 			docking_station.dock bike
 			expect(docking_station.bike_count).to eq 1
+		end
+
+		it 'when docked should return nil' do
+			bike = double :bike
+			expect(docking_station.dock bike).to eq nil
 		end
 	end
 
@@ -67,7 +70,7 @@ describe DockingStation do
 		end
 
 		# test the interaction
-		# double check with teachers
+		# double check with someone to see if im doing it correctly?
 		it 'should release bike' do
 			working_bike = double :bike, broken?: false
 			broken_bike = double :bike, broken?: true

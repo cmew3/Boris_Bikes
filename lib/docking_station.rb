@@ -23,6 +23,7 @@ class DockingStation
 
 	def dock bike
 		@bikes << bike
+		nil
 	end
 
 	def release_bike
