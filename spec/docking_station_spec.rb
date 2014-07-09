@@ -13,7 +13,7 @@ describe DockingStation do
 		end
 
 		it 'cannot be invalid' do
-			expect(docking_station.not_valid capacity: "A").to be true	
+			expect(docking_station.invalid? capacity: "A").to be true	
 		end
 
 		it 'cannot be a non integer value' do
@@ -28,7 +28,7 @@ describe DockingStation do
 		end
 
 		it 'knows that it is empty' do
-			expect(docking_station.available_bike?).to eq false 
+			expect(docking_station.any_available_bikes?).to eq false 
 		end
 
 		it 'should know the bike count' do
@@ -89,7 +89,7 @@ describe DockingStation do
 			broken_bike = double :bike, broken?: true
 			docking_station.dock broken_bike
 			docking_station.dock working_bike
-			expect(docking_station).to receive(:available_bike?).and_return([working_bike])
+			expect(docking_station).to receive(:any_available_bikes?).and_return([working_bike])
 			expect(docking_station).to receive(:available_bikes).and_return([working_bike])
 			docking_station.release_bike
 		end
