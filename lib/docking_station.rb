@@ -16,8 +16,8 @@ class DockingStation
 		@capacity == bike_count
 	end
 
-	def empty?
-		@bikes.empty?
+	def available_bike?
+		!available_bikes.empty?
 	end
 
 	def bike_count
@@ -31,7 +31,7 @@ class DockingStation
 	end
 
 	def release_bike
-		raise "There are no bikes!!" if empty?
+		raise "There are no available bikes!!" unless available_bike?
 		available_bikes.first
 	end
 
