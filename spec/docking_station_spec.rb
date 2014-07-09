@@ -19,9 +19,16 @@ describe DockingStation do
 	end
 
 	context 'that is full' do
-
 		it 'should be full' do
-			
+			docking_station = DockingStation.new
+			DockingStation::DEFAULT_CAPACITY.times { docking_station.dock(:bike) }
+			expect(docking_station).to be_full
+		end
+
+		it 'can release a bike' do
+			docking_station = DockingStation.new
+			DockingStation::DEFAULT_CAPACITY.times { docking_station.dock(:bike) }
+			expect(docking_station.release_bike).to eq :bike
 		end
 	end
 end

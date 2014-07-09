@@ -1,11 +1,13 @@
 class DockingStation
+	DEFAULT_CAPACITY = 10
+
 	def initialize
 		@bikes = []
+		@capacity = DEFAULT_CAPACITY
 	end
 
-
 	def full?
-		false
+		@capacity == bike_count
 	end
 
 	def bike_count
@@ -14,5 +16,9 @@ class DockingStation
 
 	def dock bike
 		@bikes << bike
+	end
+
+	def release_bike
+		@bikes.first
 	end
 end
