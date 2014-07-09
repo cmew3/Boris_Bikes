@@ -28,7 +28,7 @@ describe DockingStation do
 		end
 
 		it 'knows that it is empty' do
-			expect(docking_station.bike_available?).to eq false 
+			expect(docking_station).not_to have_available_bike 
 		end
 
 		it 'should know the bike count' do
@@ -89,7 +89,7 @@ describe DockingStation do
 			broken_bike = double :bike, broken?: true
 			docking_station.dock broken_bike
 			docking_station.dock working_bike
-			expect(docking_station).to receive(:bike_available?).and_return([working_bike])
+			expect(docking_station).to receive(:has_available_bike?).and_return([working_bike])
 			expect(docking_station).to receive(:available_bikes).and_return([working_bike])
 			docking_station.release_bike
 		end
