@@ -10,6 +10,12 @@ describe DockingStation do
 		it 'should know the bike count' do
 			expect(docking_station.bike_count).to eq 0
 		end
+
+		it 'can dock bikes' do
+			bike = double :bike
+			docking_station.dock bike
+			expect(docking_station.bike_count).to eq 1
+		end
 	end
 
 	context 'that is full' do
