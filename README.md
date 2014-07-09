@@ -1,5 +1,5 @@
 # Boris Bikes
-[![Code Climate](https://codeclimate.com/github/yoshdog/boris-bikes.png)](https://codeclimate.com/github/yoshdog/boris-bikes)   [![Build Status](https://travis-ci.org/yoshdog/boris-bikes.svg?branch=master)](https://travis-ci.org/yoshdog/boris-bikes)
+[![Code Climate](https://codeclimate.com/github/yoshdog/boris-bikes.png)](https://codeclimate.com/github/yoshdog/boris-bikes)
 
 Recreating the London Boris Bikes System.
 
