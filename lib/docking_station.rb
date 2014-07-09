@@ -3,12 +3,12 @@ class DockingStation
 	attr_reader :capacity
 
 	def initialize(options = {})
-		raise "Capacity is not an integer" if not_valid options
+		raise "Capacity is not an integer" if invalid? options
 		@bikes = []
 		@capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
 	end
 
-	def not_valid options
+	def invalid? options
 		!options[:capacity].nil? && !options[:capacity].is_a?(Integer)
 	end
 
@@ -16,7 +16,7 @@ class DockingStation
 		@capacity == bike_count
 	end
 
-	def available_bike?
+	def any_available_bikes?
 		!available_bikes.empty?
 	end
 
@@ -31,7 +31,7 @@ class DockingStation
 	end
 
 	def release_bike
-		raise "There are no available bikes!!" unless available_bike?
+		raise "There are no available bikes!!" unless any_available_bikes?
 		available_bikes.first
 	end
 
