@@ -11,4 +11,12 @@ class Person
 		@bike.break!
 	end
 
+	def rent_bike_from docking_station
+		@bike = docking_station.release_bike
+	end
+
+	def return_bike_to docking_station
+		@bike = docking_station.dock @bike
+	end
+
 end
