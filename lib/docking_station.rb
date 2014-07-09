@@ -17,16 +17,22 @@ class DockingStation
 		@capacity == bike_count
 	end
 
+	def empty?
+		@bikes.empty?
+	end
+
 	def bike_count
 		@bikes.count
 	end
 
 	def dock bike
+		raise "Station is full!!" if full?
 		@bikes << bike
 		nil
 	end
 
 	def release_bike
+		raise "There are no bikes!!" if empty?
 		available_bikes.first
 	end
 
