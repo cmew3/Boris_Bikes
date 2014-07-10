@@ -43,7 +43,6 @@ shared_examples 'A bike container' do
 			expect(holder.dock bike).to eq nil
 		end
 
-
 	end
 
 	context 'that is full' do
