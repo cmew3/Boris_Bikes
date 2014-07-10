@@ -83,6 +83,17 @@ shared_examples 'A bike container' do
 			expect(holder.broken_bikes). to eq [broken_bike]
 		end
 
+		it 'should release a single bike' do
+			holder.dock working_bike
+			holder.dock broken_bike
+			holder.release broken_bike
+			expect(holder.bikes).to eq [working_bike]
+		end
+
+		it 'should raise an error if bike is not present to be released' do
+			holder.dock working_bike
+			expect{holder.release(broken_bike)}.to raise_error RuntimeError
+		end
 		
 	end
 
