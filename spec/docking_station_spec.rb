@@ -1,94 +1,25 @@
 require 'docking_station'
+require 'bike_container_spec'
 
 describe DockingStation do
 	let(:docking_station) { DockingStation.new }
-	context 'capacity' do
-		it 'can be any number' do
-			station = DockingStation.new(capacity: 25)
-			expect(station.capacity).to eq 25
-		end
+	let(:working_bike) { double :bike, broken?: false }
+	let(:broken_bike) { double :bike, broken?: true }
 
-		it 'can have a default capacity' do
-			expect(docking_station.capacity).to eq DockingStation::DEFAULT_CAPACITY
-		end
+	it_behaves_like 'A bike container'
 
-		it 'knows if it is invalid' do
-			expect(docking_station.invalid? capacity: "A").to be true	
-		end
-
-		it 'cannot be a non integer value' do
-			expect { DockingStation.new(capacity: "A") }.to raise_error(RuntimeError)
-		end
+	it 'can have a default capacity' do
+		expect(docking_station.capacity).to eq DockingStation::STATION_DEFAULT_CAPACITY
 	end
 
-	context 'that is empty' do
-		
-		it 'is not full' do
-			expect(docking_station).not_to be_full
-		end
+	it 'should release the first available bike' do
+		docking_station.dock broken_bike
+		docking_station.dock working_bike
 
-		it 'knows that it is empty' do
-			expect(docking_station).not_to have_available_bike 
-		end
-
-		it 'should know the bike count' do
-			expect(docking_station.bike_count).to eq 0
-		end
-
-		it 'can dock bikes' do
-			bike = double :bike
-			docking_station.dock bike
-			expect(docking_station.bike_count).to eq 1
-		end
-
-		it 'when docked should return nil' do
-			bike = double :bike
-			expect(docking_station.dock bike).to eq nil
-		end
-
-		it 'cannot release bike' do
-			expect{ docking_station.release_first_available_bike }.to raise_error(RuntimeError)
-		end
+		expect(docking_station.release_first_available_bike).to eq working_bike
 	end
 
-	context 'that is full' do
-		it 'should be full' do
-			docking_station.capacity.times { docking_station.dock(:bike) }
-			expect(docking_station).to be_full
-		end
-
-		it 'cannot dock anymore bikes' do
-			docking_station.capacity.times { docking_station.dock(:bike) }
-			expect{ docking_station.dock(:bike) }.to raise_error(RuntimeError)
-		end
-	end
-
-	context 'that has mixture of broken and working bikes' do
-		
-		it 'should know that bikes are working' do
-			working_bike = double :bike
-			docking_station.dock working_bike
-
-			expect(working_bike).to receive(:broken?)
-			docking_station.available_bikes
-		end
-
-		it 'should return only available bikes' do
-			working_bike = double :bike, broken?: false
-			broken_bike = double :bike, broken?: true
-			docking_station.dock working_bike
-			docking_station.dock broken_bike
-		
-			expect(docking_station.available_bikes).to eq [working_bike]
-		end
-
-		it 'should release the first available bike' do
-			working_bike = double :bike, broken?: false
-			broken_bike = double :bike, broken?: true
-			docking_station.dock broken_bike
-			docking_station.dock working_bike
-
-			expect(docking_station.release_first_available_bike).to eq working_bike
-		end
+	it 'cannot release bike' do
+		expect{ docking_station.release_first_available_bike }.to raise_error(RuntimeError)
 	end
 end
