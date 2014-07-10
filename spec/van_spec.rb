@@ -7,6 +7,7 @@ describe Van do
 	let(:van) { Van.new }
 	let(:broken_bike) {double :bike, broken?: true}
 	let(:working_bike) { double :bike, broken?: false }
+	let(:actual_bike) { double :bike, instance: Bike}
 
 	it 'removes the broken bikes from the station when it picks them up' do
 		station = double :station, broken_bikes: [broken_bike]
@@ -75,5 +76,16 @@ describe Van do
 		
 		expect(van.bikes).to eq []
 	end
+
+	it 'station does not release a bike if van is full' do
+		van = Van.new(capacity: 1)
+		broken_bike_2 = double :bike, is_broken?: true
+		van.dock broken_bike
+		station = double :station, broken_bikes: [broken_bike_2]
+		expect{ van.get_broken_bikes_from(station) }.to raise_error(RuntimeError) 
+		expect(station).not_to receive(:release)
+	end
+
+
 
 end
