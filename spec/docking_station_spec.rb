@@ -12,7 +12,7 @@ describe DockingStation do
 			expect(docking_station.capacity).to eq DockingStation::DEFAULT_CAPACITY
 		end
 
-		it 'cannot be invalid' do
+		it 'knows if it is invalid' do
 			expect(docking_station.invalid? capacity: "A").to be true	
 		end
 
