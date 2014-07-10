@@ -8,10 +8,18 @@ describe DockingStation do
 
 	it_behaves_like 'A bike container'
 
+	it 'can have a default capacity' do
+		expect(docking_station.capacity).to eq DockingStation::STATION_DEFAULT_CAPACITY
+	end
+
 	it 'should release the first available bike' do
 		docking_station.dock broken_bike
 		docking_station.dock working_bike
 
 		expect(docking_station.release_first_available_bike).to eq working_bike
+	end
+
+	it 'cannot release bike' do
+		expect{ docking_station.release_first_available_bike }.to raise_error(RuntimeError)
 	end
 end

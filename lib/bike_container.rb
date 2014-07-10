@@ -1,14 +1,13 @@
 require_relative 'bike'
 
 module BikeContainer
-	DEFAULT_CAPACITY = 10
 
 	def bikes
 		@bikes ||= []
 	end
 
 	def capacity
-		@capacity ||= DEFAULT_CAPACITY
+		@capacity 
 	end
 
 	def invalid? options
