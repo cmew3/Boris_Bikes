@@ -30,7 +30,7 @@ class DockingStation
 		nil
 	end
 
-	def release_bike
+	def release_first_available_bike
 		raise "There are no available bikes!!" unless has_available_bike?
 		available_bikes.first
 	end
