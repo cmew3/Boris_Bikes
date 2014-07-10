@@ -1,5 +1,3 @@
-require_relative 'bike'
-
 module BikeContainer
 
 	def bikes
