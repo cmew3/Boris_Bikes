@@ -10,7 +10,6 @@ class Van
 		@capacity = options.fetch(:capacity, VAN_DEFAULT_CAPACITY)
 	end
 
-	# check if available space in van before we release
 	def get_broken_bikes_from station
 		station.broken_bikes.each do |bike| 
 			self.dock bike
@@ -18,7 +17,6 @@ class Van
 		end
 	end
 
-	#check if space in garage 
 	def drop_off_broken_bikes_to garage
 		self.broken_bikes.each do |bike|
 			garage.dock(bike)

@@ -16,4 +16,8 @@ class Bike
 		@broken = false
 		self
 	end
+
+	def bike?
+		true
+	end
 end
