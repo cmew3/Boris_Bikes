@@ -8,11 +8,7 @@ shared_examples 'A bike container' do
 			big_holder = described_class.new(capacity: 25)
 			expect(big_holder.capacity).to eq 25
 		end
-
-		it 'can have a default capacity' do
-			expect(holder.capacity).to eq BikeContainer::DEFAULT_CAPACITY
-		end
-
+		
 		it 'knows if it is invalid' do
 			expect(holder.invalid? capacity: "A").to be true	
 		end
@@ -47,9 +43,7 @@ shared_examples 'A bike container' do
 			expect(holder.dock bike).to eq nil
 		end
 
-		it 'cannot release bike' do
-			expect{ holder.release_first_available_bike }.to raise_error(RuntimeError)
-		end
+
 	end
 
 	context 'that is full' do
