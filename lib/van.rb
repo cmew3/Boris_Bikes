@@ -7,28 +7,30 @@ class Van
 
 	def initialize(options = {})
 		raise "Capacity is not an integer" if invalid? options
-		@capacity = options.fetch(options[:capacity], VAN_DEFAULT_CAPACITY)
+		@capacity = options.fetch(:capacity, VAN_DEFAULT_CAPACITY)
 	end
 
-	
+	# check if available space in van before we release
 	def get_broken_bikes_from station
 		station.broken_bikes.each do |bike| 
-			station.release bike
 			self.dock bike
+			station.release bike
 		end
 	end
 
+	#check if space in garage 
 	def drop_off_broken_bikes_to garage
 		self.broken_bikes.each do |bike|
 			garage.dock(bike)
 			self.release bike
+			garage.fix_bike(bike)
 		end
 	end
 
 	def get_working_bikes_from garage
 		garage.available_bikes.each do |bike|
-			garage.release(bike)
 			self.dock bike
+			garage.release(bike)
 		end
 	end
 

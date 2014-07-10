@@ -27,7 +27,8 @@ module BikeContainer
 	end
 
 	def dock bike
-		raise "Station is full!!" if full?
+		raise "Bike already here" if bikes.include? bike
+		raise "Full!!! Cannot accept more bikes!" if full?
 		bikes << bike
 		nil
 	end
