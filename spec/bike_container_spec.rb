@@ -48,12 +48,13 @@ shared_examples 'A bike container' do
 
 	context 'that is full' do
 		it 'should be full' do
-			holder.capacity.times { holder.dock(:bike) }
+
+			holder.capacity.times { holder.dock(double :bike) }
 			expect(holder).to be_full
 		end
 
 		it 'cannot dock anymore bikes' do
-			holder.capacity.times { holder.dock(:bike) }
+			holder.capacity.times { holder.dock(double :bike) }
 			expect{ holder.dock(:bike) }.to raise_error(RuntimeError)
 		end
 	end
@@ -93,6 +94,11 @@ shared_examples 'A bike container' do
 		it 'should raise an error if bike is not present to be released' do
 			holder.dock working_bike
 			expect{holder.release(broken_bike)}.to raise_error RuntimeError
+		end
+
+		it 'cannot dock a bike twice' do
+			holder.dock working_bike
+			expect{ holder.dock working_bike }.to raise_error RuntimeError
 		end
 		
 	end

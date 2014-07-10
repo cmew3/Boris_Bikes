@@ -11,7 +11,6 @@ class Garage
 	end
 
 	def fix_bike (bike)
-		dock bike
 		bike.fix!
 	end
 end
