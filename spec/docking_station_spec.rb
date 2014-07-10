@@ -2,14 +2,14 @@ require 'docking_station'
 
 describe DockingStation do
 	let(:docking_station) { DockingStation.new }
-	context 'capacities' do
+	context 'capacity' do
 		it 'can be any number' do
 			station = DockingStation.new(capacity: 25)
 			expect(station.capacity).to eq 25
 		end
 
 		it 'can have a default capacity' do
-			expect(docking_station.capacity).to eq 10
+			expect(docking_station.capacity).to eq DockingStation::DEFAULT_CAPACITY
 		end
 
 		it 'cannot be invalid' do
@@ -47,7 +47,7 @@ describe DockingStation do
 		end
 
 		it 'cannot release bike' do
-			expect{ docking_station.release_bike }.to raise_error(RuntimeError)
+			expect{ docking_station.release_first_available_bike }.to raise_error(RuntimeError)
 		end
 	end
 
@@ -82,25 +82,13 @@ describe DockingStation do
 			expect(docking_station.available_bikes).to eq [working_bike]
 		end
 
-		# test the interaction
-		# double check with someone to see if im doing it correctly?
-		it 'should release bike' do
-			working_bike = double :bike, broken?: false
-			broken_bike = double :bike, broken?: true
-			docking_station.dock broken_bike
-			docking_station.dock working_bike
-			expect(docking_station).to receive(:has_available_bike?).and_return([working_bike])
-			expect(docking_station).to receive(:available_bikes).and_return([working_bike])
-			docking_station.release_bike
-		end
-		# then test the data
 		it 'should release the first available bike' do
 			working_bike = double :bike, broken?: false
 			broken_bike = double :bike, broken?: true
 			docking_station.dock broken_bike
 			docking_station.dock working_bike
 
-			expect(docking_station.release_bike).to eq working_bike
+			expect(docking_station.release_first_available_bike).to eq working_bike
 		end
 	end
 end

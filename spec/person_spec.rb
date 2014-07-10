@@ -41,12 +41,12 @@ describe Person do
 
 		it 'can rent a bike from docking station' do
 			docking_station = double :station
-			expect(docking_station).to receive(:release_bike)
+			expect(docking_station).to receive(:release_first_available_bike)
 			person.rent_bike_from docking_station
 		end
 
 		it 'receives bike after renting' do
-			docking_station = double :station, release_bike: :bike
+			docking_station = double :station, :release_first_available_bike: :bike
 			person.rent_bike_from docking_station
 			expect(person).to have_bike
 		end
