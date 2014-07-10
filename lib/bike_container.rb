@@ -32,6 +32,11 @@ module BikeContainer
 		nil
 	end
 
+	def release bike
+		raise "Can't find that bike" unless bikes.include? bike
+		bikes.delete(bike)
+	end
+
 
 	def available_bikes
 		bikes.reject { |bike| bike.broken? }
