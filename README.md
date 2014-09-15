@@ -1,6 +1,6 @@
 # Boris Bikes
 
-A second version of Boris Bikes pairing with [Toan]((https://github.com/yoshdog)). As we switched pairs (paired with Jenny for the first version which can be found [here](https://github.com/cmew3/Boris_Bikes_2))
+A second version of Boris Bikes pairing with [Toan](https://github.com/yoshdog). As we switched pairs (paired with Jenny for the first version which can be found [here](https://github.com/cmew3/Boris_Bikes_2)), we agreed to work from Toan's existing program. Revisited first program later to incorporate the testing principles learnt there too.
 
 
 Recreating the London Boris Bikes System.
@@ -15,10 +15,13 @@ Built using the following Principles
 * Unit tests (no integration/feature testing yet)
 * London style mocking and stubbing
 
+
 How to run tests
 ----------
 Tested using [rspec](https://github.com/rspec/rspec)
 
 ```shell
+git clone https://github.com/cmew3/Boris_Bikes.git
+cd Boris_Bikes
 rspec
 ```
